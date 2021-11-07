@@ -24,18 +24,21 @@ class _MyHomePageState extends State<MyHomePage> {
   double amountInput = 0;
   TextEditingController _controller = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Currency  da convertor'),
+        title: const Text(
+          'Currency convertor',
+          style: TextStyle(
+            color: Colors.amber,
+          ),
+        ),
       ),
       body: Card(
         elevation: 5,
         child: SingleChildScrollView(
           child: Container(
-
             padding: const EdgeInsets.all(10),
             child: Column(
               children: <Widget>[
@@ -63,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     amountInput = double.parse(value);
                   },
                 ),
-                FlatButton(
+                TextButton(
                   child: const Text('Convert'),
                   onPressed: () {
                     setState(() {
