@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -10,19 +13,22 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   double amountInput = 0;
+  // ignore: prefer_final_fields
   TextEditingController _controller = TextEditingController();
+  bool buttonClick = false;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text(
           'Currency convertor',
           style: TextStyle(
-            color: Colors.amber,
+            color: Colors.red,
           ),
         ),
       ),
@@ -46,33 +52,43 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: 300,
                   width: double.infinity,
                   child: Image.network(
-                    'https://www.impact.ro/wp-content/uploads/2020/07/cati-bani-avem-de-platit-pentru-un-euro.jpg',
+                    //'https://www.impact.ro/wp-content/uploads/2020/07/cati-bani-avem-de-platit-pentru-un-euro.jpg',
+                    'https://external-preview.redd.it/nQc89-6X7FJPs9ytgdQni3dDQFYhxtTCiCxLzBbnv8I.jpg?auto=webp&s=75bab251306cf803b42ae6405dd86731aa59f923',
                     fit: BoxFit.cover,
                   ),
                 ),
                 TextField(
                   controller: _controller,
+                  keyboardType: const TextInputType.numberWithOptions(decimal:true),
                   decoration: InputDecoration(
-                      labelText: 'Enter te amoun in Euro',
+                      hintText: 'Enter the amount',
+                      labelText: 'Enter amount in RON',
+
                       suffix: IconButton(
-                        icon: const Icon(Icons.clear),
+                        icon: const Icon(Icons.close),
                         onPressed: () {
                           _controller.clear();
                           amountInput = 0;
                         },
                       )),
-                  keyboardType: TextInputType.number,
+
                   onChanged: (String value) {
                     amountInput = double.parse(value);
+                    buttonClick=true;
+                    print(buttonClick);
+
                   },
                 ),
                 TextButton(
                   child: const Text('Convert'),
-                  onPressed: () {
-                    setState(() {
-                      amountInput = amountInput * 4.5;
-                    });
-                  },
+                  onPressed: (){
+                    if (buttonClick==true) {
+                     setState(() {
+                      amountInput = amountInput * 5;
+                      buttonClick =false; }
+
+                    );}
+                    },
                 ),
                 if (amountInput == 0)
                   const Text(
@@ -84,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 else
                   Text(
-                    'Euroi ${amountInput.toStringAsFixed(2)}',
+                    'RON ${amountInput.toStringAsFixed(2)}',
                     style: const TextStyle(
                       fontSize: 28,
                       color: Colors.blueGrey,
